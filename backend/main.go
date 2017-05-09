@@ -1,24 +1,25 @@
 package main
 
 import(
-    "encoding/json"
+    "fmt"
     "log"
     "net/http"
 
-    "github.com/gorilla/mux"
+    "github.com/julienschmidt/httprouter"
 )
 
-type Message struct {
-    Message string `json:"message,omitempty"`
+func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+    fmt.Fprint(w, "Welcome!\n")
 }
 
-func GetMessageEnpoint(w http.ResponseWritter, req *http.Request) {
-    params := mux.Vars(req)
-    json.NewEncoder(w).Encode("Lorem Ipsum")
+func Hello(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+    fmt.Fprintf(w, "hello, %s!\n", ps.ByName("name"))
 }
 
 func main() {
-    router := mux.NewRouter()
-    router.HandleFunc("/", GetMessageEnpoint).Methods("GET")
-    log.Fatal(http.listenAndServer(":8080", router))
+    router := httprouter.New()
+    router.GET("/", Index)
+    router.GET("/hello/:name", Hello)
+
+    log.Fatal(http.ListenAndServe(":8080", router))
 }
