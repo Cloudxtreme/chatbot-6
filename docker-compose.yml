@@ -1,13 +1,13 @@
 version: '2'
 
 services:
-    nginx:
+    proxy:
         build: ./docker/nginx/
 
-    backend:
+    api:
         build: ./docker/golang/
         volumes:
-            - ./backend:/go
+            - ./api:/go
 
     db:
         build: ./docker/scylla/
