@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+    nginx:
+        build: ./docker/nginx/
+
+    backend:
+        build: ./docker/golang/
+        volumes:
+            - ./backend:/go
+
+    db:
+        build: ./docker/scylla/
