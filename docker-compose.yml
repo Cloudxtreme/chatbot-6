@@ -1,13 +1,42 @@
-version: '2'
+version: '3'
 
 services:
-    proxy:
+    frontend:
+        image: nginx:alpine
+        volumes: ./web:/usr/share/nginx/html
+        read_only: true
+
+    api_proxy:
         build: ./docker/nginx/
+        read_only: true
+        deploy:
+          mode: global
+          update_config:
+            parallelism: 2
+            delay: 10s
+          restart_policy:
+            condition: on-failure
 
     api:
         build: ./docker/golang/
         volumes:
             - ./api:/go
+        links:
+            - db
+        deploy:
+          mode: global
+          update_config:
+            parallelism: 2
+            delay: 10s
+          restart_policy:
+            condition: on-failure
 
     db:
         build: ./docker/scylla/
+        deploy:
+          mode: global
+          update_config:
+            parallelism: 2
+            delay: 10s
+          restart_policy:
+            condition: on-failure
