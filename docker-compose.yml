@@ -1,42 +1,76 @@
-version: '3'
+version: '2'
 
 services:
-    frontend:
-        image: nginx:alpine
-        volumes: ./web:/usr/share/nginx/html
-        read_only: true
+    db:
+        build: ./docker/scylla/
+        container_name: chat_db
+        networks:
+            db:
+                aliases:
+                    - db
 
-    api_proxy:
-        build: ./docker/nginx/
-        read_only: true
-        deploy:
-          mode: global
-          update_config:
-            parallelism: 2
-            delay: 10s
-          restart_policy:
-            condition: on-failure
+    website:
+        build: ./docker/website/
+        container_name: chat_website
+        volumes:
+            - ./website:/usr/share/nginx/html
 
-    api:
+    haproxy:
+        build: ./docker/haproxy/
+        container_name: chat_haproxy
+        networks:
+            haproxy:
+                aliases:
+                    - proxy
+                    - haproxy
+        links:
+            - api1
+            - api2
+            - api3
+
+    api1:
         build: ./docker/golang/
+        container_name: chat_api1
         volumes:
             - ./api:/go
         links:
             - db
-        deploy:
-          mode: global
-          update_config:
-            parallelism: 2
-            delay: 10s
-          restart_policy:
-            condition: on-failure
+        networks:
+            db:
+                aliases:
+                    - api1
+            haproxy:
+                aliases:
+                    - api1
+    api2:
+        build: ./docker/golang/
+        container_name: chat_api2
+        volumes:
+            - ./api:/go
+        links:
+            - db
+        networks:
+            db:
+                aliases:
+                    - api2
+            haproxy:
+                aliases:
+                    - api2
+    api3:
+        build: ./docker/golang/
+        container_name: chat_api3
+        volumes:
+            - ./api:/go
+        links:
+            - db
+        networks:
+            db:
+                aliases:
+                    - api3
+            haproxy:
+                aliases:
+                    - api3
 
+networks:
     db:
-        build: ./docker/scylla/
-        deploy:
-          mode: global
-          update_config:
-            parallelism: 2
-            delay: 10s
-          restart_policy:
-            condition: on-failure
+    haproxy:
