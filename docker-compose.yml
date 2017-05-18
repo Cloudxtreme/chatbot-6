@@ -4,73 +4,27 @@ services:
     db:
         build: ./docker/scylla/
         container_name: chat_db
-        networks:
-            db:
-                aliases:
-                    - db
-
-    website:
-        build: ./docker/website/
-        container_name: chat_website
         volumes:
-            - ./website:/usr/share/nginx/html
+            - ./storage/dump:/dump
 
-    haproxy:
-        build: ./docker/haproxy/
-        container_name: chat_haproxy
-        networks:
-            haproxy:
-                aliases:
-                    - proxy
-                    - haproxy
-        links:
-            - api1
-            - api2
-            - api3
-
-    api1:
+    api:
         build: ./docker/golang/
         container_name: chat_api1
+        restart: always
+        command: go run main.go db.go question.go
         volumes:
             - ./api:/go
         links:
             - db
-        networks:
-            db:
-                aliases:
-                    - api1
-            haproxy:
-                aliases:
-                    - api1
-    api2:
-        build: ./docker/golang/
-        container_name: chat_api2
-        volumes:
-            - ./api:/go
-        links:
-            - db
-        networks:
-            db:
-                aliases:
-                    - api2
-            haproxy:
-                aliases:
-                    - api2
-    api3:
-        build: ./docker/golang/
-        container_name: chat_api3
-        volumes:
-            - ./api:/go
-        links:
-            - db
-        networks:
-            db:
-                aliases:
-                    - api3
-            haproxy:
-                aliases:
-                    - api3
 
-networks:
-    db:
-    haproxy:
+    #website:
+    #    build: ./docker/website/
+    #    container_name: chat_website
+    #    volumes:
+    #        - ./website:/usr/share/nginx/html
+
+    #haproxy:
+    #    build: ./docker/haproxy/
+    #    container_name: chat_haproxy
+    #    links:
+    #        - api01
