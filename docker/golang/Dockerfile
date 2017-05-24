@@ -1,3 +1,3 @@
 FROM golang:alpine
 
-CMD ["go", "run", "main.go"]
+CMD ["tail", "-f", "/dev/stderr"]

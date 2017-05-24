@@ -1,9 +1,13 @@
-CREATE KEYSPACE question
-  WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 3 };
+CREATE KEYSPACE sentence
+  WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 
-USE question;
+USE sentence;
 
-CREATE TABLE questions (
+CREATE TABLE sentences (
+    sentence text PRIMARY KEY
+);
+
+CREATE TABLE conversations (
     question text,
     response text,
     hits int,

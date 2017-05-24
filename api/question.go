@@ -2,7 +2,7 @@ package main
 
 import (
     "log"
-    "github.com/gocql/gocql"
+    _ "github.com/gocql/gocql"
 )
 
 type Question struct {
@@ -17,8 +17,7 @@ func (q *QuestionRepository) GetAll(question string) ([]map[string]interface{}) 
     session := DBSession()
     defer session.Close()
 
-    var query gocql.session
-    query = session.Query(`SELECT question, response, hits FROM questions`)
+    query := session.Query(`SELECT question, response, hits FROM questions`)
     if question != "" {
         query = session.Query(`SELECT question, response, hits FROM questions WHERE question = ?`, question)
     }

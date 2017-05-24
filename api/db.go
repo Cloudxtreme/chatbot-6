@@ -5,8 +5,10 @@ import (
     "github.com/gocql/gocql"
 )
 
-var hostname string = "db"
-var keyspace string = "question"
+const (
+    hostname string = "db"
+    keyspace  string = "question"
+)
 
 func DBSession() (*gocql.Session) {
     cluster := gocql.NewCluster(hostname)
