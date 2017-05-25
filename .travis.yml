@@ -1,5 +1,9 @@
 language: go
-sudo: false
+
+sudo: true
+
+services:
+    - docker
 
 matrix:
   include:
@@ -13,6 +17,5 @@ matrix:
     - go: tip
 
 script:
-  - cd ./api
-  - go get -t -v .
-  - go test -v
+  - docker-compose run api go get -t -v
+  - docker-compose run api go test -v
