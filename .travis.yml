@@ -26,5 +26,7 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
 script:
-  - docker-compose run api go get -t -v
-  - docker-compose run api go test -v
+  - docker-compose up -d
+  - docker-compose exec db cqlsh -f /dump/dump.sql
+  - docker-compose exec api go get -t -v .
+  - docker-compose exec api go test -v
