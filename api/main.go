@@ -8,7 +8,7 @@ import (
 )
 
 const (
-    host = "",
+    host = ""
     port = "8080"
 )
 
@@ -20,5 +20,5 @@ func main() {
 	router := httprouter.New()
 	router.POST("/", PostConversationEndPoint)
 
-    log.Fatal(http.ListenAndServe(host + ":" port, router))
+    log.Fatal(http.ListenAndServe(host + ":" +  port, router))
 }
