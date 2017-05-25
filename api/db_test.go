@@ -3,16 +3,16 @@ package main
 import "testing"
 
 func TestDBSession(t *testing.T) {
-    session := DBSession()
-    if session == nil {
-        t.Error("database session was not created")
-    }
+	session := DBSession()
+	if session == nil {
+		t.Error("database session was not created")
+	}
 }
 
 func benchmarkDBSession(i int, b *testing.B) {
-    for n := 0; n < b.N; n++ {
-        DBSession()
-    }
+	for n := 0; n < b.N; n++ {
+		DBSession()
+	}
 }
 
 func BenchmarkDBSession1(b *testing.B)  { benchmarkDBSession(1, b) }

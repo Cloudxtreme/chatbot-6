@@ -1,29 +1,24 @@
 package main
 
-import(
-    "log"
-    "net/http"
-    "encoding/json"
+import (
+	"log"
+	"net/http"
 
-    "github.com/julienschmidt/httprouter"
+	"github.com/julienschmidt/httprouter"
 )
 
-var q *QuestionRepository = new(QuestionRepository)
+const (
+    host = "",
+    port = "8080"
+)
 
-func GetIndexEndPoint(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-    w.Write([]byte("Hello!"))
-}
-
-func GetQuestionEndPoint(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-    questions := q.GetAll(ps.ByName("question"))
-    encoder := json.NewEncoder(w)
-    encoder.Encode(questions)
+func PostConversationEndPoint(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	w.Write([]byte("Hello!"))
 }
 
 func main() {
-    router := httprouter.New()
-    router.GET("/", GetIndexEndPoint)
-    router.GET("/questions", GetQuestionEndPoint)
+	router := httprouter.New()
+	router.POST("/", PostConversationEndPoint)
 
-    log.Fatal(http.ListenAndServe(":8080", router))
+    log.Fatal(http.ListenAndServe(host + ":" port, router))
 }
