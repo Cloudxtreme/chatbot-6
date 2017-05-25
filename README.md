@@ -1,4 +1,4 @@
-# Chatbot
+# Chatbot [![Build Status](https://travis-ci.org/jaschweder/chatbot.svg?branch=master)](https://travis-ci.org/jaschweder/chatbot)
 
 > chatbot implemetation in Golang using Scylladb for data storage
 
