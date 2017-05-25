@@ -15,4 +15,4 @@ matrix:
 script:
   - cd ./api
   - go get -t -v .
-  - go test -v -race .
+  - go test -v
