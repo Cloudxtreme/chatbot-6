@@ -1,1 +1,2 @@
-./api/go
+api/src/*
+api/bin/*
