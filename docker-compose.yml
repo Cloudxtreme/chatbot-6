@@ -11,7 +11,7 @@ services:
         build: ./docker/golang/
         container_name: chat_api1
         restart: always
-        command: go run main.go db.go question.go
+        command: go run api.go db.go conversation.go sentence.go
         volumes:
             - ./api:/go
         links:
