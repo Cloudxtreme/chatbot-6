@@ -7,7 +7,7 @@ import (
 
 const (
 	hostname string = "db"
-	keyspace string = "sentence"
+	keyspace string = "chatbot"
 )
 
 func DBSession() *gocql.Session {

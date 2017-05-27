@@ -6,7 +6,6 @@ func RandomConversation() *Conversation {
 	var conversation *Conversation = new(Conversation)
 	conversation.Question = "hi"
 	conversation.Response = "hi, what's up ?"
-	conversation.Hits = 255
 	return conversation
 }
 

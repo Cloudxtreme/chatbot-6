@@ -1,11 +1,7 @@
-CREATE KEYSPACE sentence
+CREATE KEYSPACE chatbot
   WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 
-USE sentence;
-
-CREATE TABLE sentences (
-    sentence text PRIMARY KEY
-);
+USE chatbot;
 
 CREATE TABLE conversations (
     question text,
