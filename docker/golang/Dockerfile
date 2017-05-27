@@ -1,5 +1,7 @@
 FROM golang:alpine
 
+WORKDIR /go
+
 ENV GOPATH /go
 
 RUN apk update -U \
