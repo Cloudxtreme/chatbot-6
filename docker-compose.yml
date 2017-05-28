@@ -1,6 +1,13 @@
 version: '2'
 
 services:
+
+    haproxy:
+        build: ./docker/haproxy/
+        container_name: chat_haproxy
+        links:
+            - api
+
     db:
         build: ./docker/scylla/
         container_name: chat_db
@@ -16,9 +23,3 @@ services:
             - ./api:/go
         links:
             - db
-
-    #haproxy:
-    #    build: ./docker/haproxy/
-    #    container_name: chat_haproxy
-    #    links:
-    #        - api01
