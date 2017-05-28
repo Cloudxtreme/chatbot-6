@@ -17,12 +17,6 @@ services:
         links:
             - db
 
-    #website:
-    #    build: ./docker/website/
-    #    container_name: chat_website
-    #    volumes:
-    #        - ./website:/usr/share/nginx/html
-
     #haproxy:
     #    build: ./docker/haproxy/
     #    container_name: chat_haproxy
