@@ -19,6 +19,6 @@ services:
         container_name: chat_api1
         restart: always
         volumes:
-            - ..:/go
+            - .:/go
         links:
             - db
