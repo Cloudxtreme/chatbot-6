@@ -18,8 +18,7 @@ services:
         build: ./docker/golang/
         container_name: chat_api1
         restart: always
-        command: tail -f /dev/stdout
         volumes:
-            - ./api:/go
+            - ..:/go
         links:
             - db
