@@ -7,11 +7,11 @@ services:
 
 env:
     global:
-        DOCKER_COMPOSE_VERSION=1.13.0
+        - DOCKER_COMPOSE_VERSION=1.13.0
     matrix:
-        GOVERSION=1.6
-        GOVERSION=1.7
-        GOVERSION=1.8
+        - GOVERSION=1.6
+        - GOVERSION=1.7
+        - GOVERSION=1.8
 
 before_install:
   - sudo rm -f /usr/local/bin/docker-compose
